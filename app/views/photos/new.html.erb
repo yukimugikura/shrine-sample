@@ -1,0 +1,26 @@
+<h1>Upload New Photo</h1>
+
+<%= form_with model: @photo, local: true do |f| %>
+  <% if @photo.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@photo.errors.count, "error") %> prohibited this photo from being saved:</h2>
+      <ul>
+        <% @photo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :image, "Select Image" %>
+    <%= f.file_field :image, accept: "image/*" %>
+  </div>
+
+  <div>
+    <%= f.submit "Upload Photo" %>
+  </div>
+<% end %>
+
+<br>
+<%= link_to "Back to Photos", photos_path %>

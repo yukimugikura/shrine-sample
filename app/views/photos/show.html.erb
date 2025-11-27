@@ -1,0 +1,42 @@
+<h1>Photo Details</h1>
+
+<% if @photo.image %>
+  <div>
+    <h2>Original Image</h2>
+    <%= image_tag @photo.image_url, alt: "Photo" %>
+  </div>
+
+  <% if @photo.image_derivatives %>
+    <div>
+      <h3>Thumbnails</h3>
+      <% if @photo.image_derivatives[:small] %>
+        <div>
+          <p>Small (300x300)</p>
+          <%= image_tag @photo.image_url(:small), alt: "Small thumbnail" %>
+        </div>
+      <% end %>
+
+      <% if @photo.image_derivatives[:medium] %>
+        <div>
+          <p>Medium (600x600)</p>
+          <%= image_tag @photo.image_url(:medium), alt: "Medium thumbnail" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <h3>Metadata</h3>
+    <ul>
+      <li>Filename: <%= @photo.image.original_filename %></li>
+      <li>Size: <%= number_to_human_size(@photo.image.size) %></li>
+      <li>MIME Type: <%= @photo.image.mime_type %></li>
+    </ul>
+  </div>
+<% else %>
+  <p>No image attached.</p>
+<% end %>
+
+<br>
+<%= link_to "Upload Another Photo", new_photo_path %> |
+<%= link_to "Back to Photos", photos_path %>

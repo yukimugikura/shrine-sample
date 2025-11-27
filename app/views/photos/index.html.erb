@@ -1,0 +1,22 @@
+<h1>Photo Gallery</h1>
+
+<%= link_to "Upload New Photo", new_photo_path %>
+
+<% if @photos.any? %>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+    <% @photos.each do |photo| %>
+      <div style="border: 1px solid #ddd; padding: 10px;">
+        <% if photo.image %>
+          <%= link_to photo do %>
+            <%= image_tag photo.image_url, alt: "Photo", style: "width: 100%; height: auto;"%>
+          <% end %>
+          <p style="margin-top: 10px; font-size: 12px;">
+            <%= photo.image.original_filename %>
+          </p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>No photos uploaded yet.</p>
+<% end %>
